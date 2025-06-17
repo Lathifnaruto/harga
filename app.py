@@ -44,8 +44,75 @@ st.markdown("""
         color: var(--text);
         min-height: 100vh;
     }
+    import streamlit as st
+import pandas as pd
+import joblib
+from datetime import datetime
+
+# Load model dan data asli
+model_data = joblib.load('model_regresi_rumah.sav')
+df = pd.read_csv('rumah.csv')
+
+model = model_data['model']
+features = model_data['features']
+encode_map = model_data['encode_map']
+metrics = model_data.get('metrics', {})
+
+# Streamlit Config
+st.set_page_config(page_title="Prediksi Harga Rumah", page_icon="🏠", layout="centered")
+
+# --- Custom CSS with Aqua Price Box ---
+st.markdown("""
+    <style>
+    :root {
+        /* Color Palette */
+        --primary: rgba(30, 34, 46, 0.95);
+        --secondary: rgba(40, 44, 58, 0.98);
+        --text: #e2e8f0;
+        --text-secondary: #94a3b8;
+        --accent: #4f46e5;
+        --accent-light: #6366f1;
+        --card: rgba(26, 32, 44, 0.98);
+        --border: rgba(74, 85, 104, 0.3);
+        --success: #10b981;
+        --warning: #f59e0b;
+        --error: #ef4444;
+    }
     
-    /* Main Container */
+    .stApp {
+        background: linear-gradient(rgba(30, 34, 46, 0.95), 
+                    url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: var(--text);
+        min-height: 100vh;
+    }
+    
+    /* Aqua Price Box */
+    .aqua-price-box {
+        padding: 30px;
+        background: linear-gradient(135deg, #00FFFF, #00BFFF);
+        border-radius: 12px;
+        text-align: center;
+        border: 2px solid #00CED1;
+        margin: 25px 0;
+        color: #003366 !important;
+        box-shadow: 0 6px 20px rgba(0, 191, 255, 0.2);
+    }
+    
+    .aqua-price-box h2 {
+        color: #003366 !important;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        font-size: 2.2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .aqua-price-box p {
+        color: #003366 !important;
+        font-weight: 500;
+    }
+    
     .main .block-container {
         background-color: var(--primary);
         backdrop-filter: blur(8px);
@@ -177,31 +244,6 @@ st.markdown("""
         margin-top: 2rem;
         border-top: 1px solid var(--border);
     }
-
-    /* Aqua-themed result box */
-.aqua-price-box {
-    padding: 30px;
-    background: linear-gradient(135deg, #00FFFF, #00BFFF);
-    border-radius: 12px;
-    text-align: center;
-    border: 2px solid #00CED1;
-    margin: 25px 0;
-    color: #003366 !important;
-    box-shadow: 0 6px 20px rgba(0, 191, 255, 0.2);
-}
-
-.aqua-price-box h2 {
-    color: #003366 !important;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-    font-size: 2.2rem;
-    margin-bottom: 0.5rem;
-}
-
-.aqua-price-box p {
-    color: #003366 !important;
-    font-weight: 500;
-}
-    
     /* Data Tables */
     .dataframe {
         background-color: var(--card) !important;
@@ -262,24 +304,18 @@ with st.form("form_rumah"):
 # --- Feature Importance Visualization ---
 st.subheader("📊 Pentingnya Fitur dalam Prediksi Harga")
 
-# Dapatkan importance scores dari model
 feature_importance = model.feature_importances_
 importance_df = pd.DataFrame({
     'Fitur': features,
     'Pengaruh': feature_importance
 }).sort_values('Pengaruh', ascending=False)
 
-# Tampilkan dalam bentuk bar chart
 st.bar_chart(importance_df.set_index('Fitur'))
-
-# Tampilkan penjelasan
 st.markdown("""
 **Penjelasan Pentingnya Fitur:**
 - Nilai di atas menunjukkan seberapa besar pengaruh setiap fitur terhadap prediksi harga rumah
 - Semakin tinggi nilainya, semakin besar pengaruh fitur tersebut dalam menentukan harga
 """)
-
-# Tampilkan tabel detail
 st.write("Detail Pengaruh Setiap Fitur:")
 st.dataframe(importance_df.style.format({'Pengaruh': '{:.2%}'}))
 
@@ -288,36 +324,42 @@ if submit:
     if land_size == 0 or building_size == 0:
         st.warning("Luas tanah dan bangunan tidak boleh nol!")
     else:
-        # ... (previous prediction code remains the same until the result box)
+        input_dict = {
+            'bedrooms': bedrooms,
+            'bathrooms': bathrooms,
+            'land_size_m2': land_size,
+            'building_size_m2': building_size,
+            'floors': floors,
+            'building_age': building_age,
+            'garages': garages,
+            'property_type': encode_map['property_type'].get(property_type, 0),
+            'furnishing': encode_map['furnishing'].get(furnishing, 1),
+            'property_condition': encode_map['property_condition'].get(property_condition, 2)
+        }
+
+        data_input = pd.DataFrame([input_dict])[features]
+
+        with st.spinner("🔄 Memproses prediksi..."):
+            harga_prediksi = model.predict(data_input)[0]
+            harga_rupiah = f"Rp {harga_prediksi:,.0f}".replace(",", ".")
 
         st.divider()
         st.subheader("💰 Estimasi Harga Rumah")
         
-        # Box hasil prediksi dengan desain aqua
+        # Aqua-themed price box
         st.markdown(
             f"""
-            <div class="result-box" style="
-                background: linear-gradient(135deg, #00FFFF, #00BFFF);
-                border: 2px solid #00CED1;
-                color: #003366 !important;
-            ">
-                <h2 style="
-                    color: #003366 !important;
-                    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-                    font-size: 2.2rem;
-                    margin-bottom: 0.5rem;
-                ">🏡 {harga_rupiah}</h2>
-                <p style="color: #003366; font-weight: 500;">Perkiraan berdasarkan data properti yang Anda masukkan</p>
+            <div class="aqua-price-box">
+                <h2>🏡 {harga_rupiah}</h2>
+                <p>Perkiraan berdasarkan data properti yang Anda masukkan</p>
             </div>
             """,
             unsafe_allow_html=True
         )
 
-        # --- Cari Properti Serupa ---
+        # --- Similar Properties ---
         st.subheader("🔍 Properti Serupa")
-        
         try:
-            # Cari properti dengan kriteria yang mirip
             similar_properties = df[
                 (df['bedrooms'].between(bedrooms-1, bedrooms+1)) &
                 (df['bathrooms'].between(bathrooms-1, bathrooms+1)) &
@@ -327,7 +369,6 @@ if submit:
             ]
             
             if not similar_properties.empty:
-                # Ambil 3 properti terdekat
                 similar_properties['price_diff'] = abs(similar_properties['price_in_rp'] - harga_prediksi)
                 similar_properties = similar_properties.sort_values('price_diff').head(3)
                 
@@ -349,7 +390,6 @@ if submit:
         except Exception as e:
             st.error(f"Terjadi kesalahan saat mencari properti serupa: {str(e)}")
 
-        # --- Evaluasi Model ---
         if metrics:
             st.subheader("📊 Evaluasi Model")
             st.success(f"**Akurasi Pada Score Prediksi (R² Score):** {metrics['R2'] * 100:.2f}%")
