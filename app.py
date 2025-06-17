@@ -19,15 +19,16 @@ st.set_page_config(page_title="Prediksi Harga Rumah", page_icon="🏠", layout="
 st.markdown("""
     <style>
     :root {
-        --primary: rgba(43, 43, 43, 0.85);
-        --secondary: rgba(59, 59, 59, 0.9);
-        --text: #ffffff;
+        --primary: rgba(255, 255, 255, 0.95);
+        --secondary: rgba(245, 245, 245, 0.98);
+        --text: #333333;
         --accent: #4f8bf9;
-        --card: rgba(66, 66, 66, 0.9);
+        --card: rgba(255, 255, 255, 0.98);
+        --border: rgba(0, 0, 0, 0.1);
     }
     
     .stApp {
-        background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+        background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), 
                     url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
         background-size: cover;
         background-position: center;
@@ -38,37 +39,43 @@ st.markdown("""
     /* Main container styling */
     .main .block-container {
         background-color: var(--primary);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border-radius: 15px;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border-radius: 12px;
         padding: 2rem;
-        margin-top: 2rem;
-        margin-bottom: 2rem;
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-        border: 1px solid rgba(255, 255, 255, 0.18);
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
+        border: 1px solid var(--border);
     }
     
     /* Result box styling */
     .result-box {
         padding: 25px;
         background-color: var(--card);
-        backdrop-filter: blur(5px);
-        border-radius: 15px;
+        backdrop-filter: blur(2px);
+        border-radius: 12px;
         text-align: center;
         border: 1px solid var(--accent);
         margin: 20px 0;
         color: var(--text);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
     
     /* Similar property cards */
     .similar-property {
         background-color: var(--secondary);
-        backdrop-filter: blur(5px);
+        backdrop-filter: blur(2px);
         padding: 15px;
-        border-radius: 10px;
+        border-radius: 8px;
         margin: 15px 0;
         border-left: 4px solid var(--accent);
         color: var(--text);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    
+    .similar-property h4 {
+        color: var(--text) !important;
     }
     
     .similar-property a {
@@ -85,50 +92,92 @@ st.markdown("""
     .st-am, .st-an, .st-ao, .st-ap, .st-aq, .st-ar, .st-as,
     .stNumberInput, .stSelectbox, .stTextInput {
         background-color: var(--secondary) !important;
-        backdrop-filter: blur(2px);
+        border: 1px solid var(--border) !important;
+        color: var(--text) !important;
+    }
+    
+    .stNumberInput input, .stSelectbox select, .stTextInput input {
+        color: var(--text) !important;
     }
     
     .stButton>button {
         background-color: var(--accent) !important;
         color: white !important;
         transition: all 0.3s;
+        border: none !important;
+        border-radius: 8px !important;
+        padding: 0.5rem 1rem !important;
     }
     
     .stButton>button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        transform: translateY(-1px);
+        box-shadow: 0 2px 6px rgba(79, 139, 249, 0.3);
     }
     
     /* Notification styling */
     .stWarning {
-        background-color: #ff6b6b !important;
-        color: white !important;
+        background-color: #fff3cd !important;
+        color: #856404 !important;
+        border-left: 4px solid #ffeeba !important;
     }
     
     .stSuccess {
-        background-color: #51a351 !important;
-        color: white !important;
+        background-color: #d4edda !important;
+        color: #155724 !important;
+        border-left: 4px solid #c3e6cb !important;
     }
     
     .stError {
-        background-color: #bd362f !important;
-        color: white !important;
+        background-color: #f8d7da !important;
+        color: #721c24 !important;
+        border-left: 4px solid #f5c6cb !important;
     }
     
     /* Footer styling */
     .footer {
-        background-color: rgba(43, 43, 43, 0.8);
+        background-color: rgba(255, 255, 255, 0.9);
         text-align: center;
         font-size: 0.85em;
-        color: #aaaaaa;
+        color: #666666;
         padding: 15px;
-        border-radius: 10px;
+        border-radius: 8px;
         margin-top: 30px;
+        border-top: 1px solid var(--border);
     }
     
     /* Divider styling */
     .stDivider>div>div>div {
         background-color: var(--accent) !important;
+    }
+    
+    /* Text styling */
+    h1, h2, h3, h4, h5, h6 {
+        color: var(--text) !important;
+    }
+    
+    /* Input labels */
+    label {
+        color: var(--text) !important;
+    }
+    
+    /* Spinner color */
+    .stSpinner>div>div {
+        border-color: var(--accent) transparent transparent transparent !important;
+    }
+    
+    /* Bar chart styling */
+    .st-eb {
+        background-color: var(--card) !important;
+    }
+    
+    /* Dataframe styling */
+    .dataframe {
+        background-color: var(--card) !important;
+    }
+    
+    /* Make sure all text is visible */
+    .st-bh, .st-bi, .st-bj, .st-bk, .st-bl, .st-bm, .st-bn, .st-bo, .st-bp, .st-bq, .st-br, .st-bs, .st-bt, .st-bu, .st-bv, .st-bw, .st-bx, .st-by, .st-bz {
+        color: var(--text) !important;
     }
     </style>
 """, unsafe_allow_html=True)
