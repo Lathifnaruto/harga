@@ -152,4 +152,8 @@ if submit:
             st.success(f"**Akurasi Pada Score Prediksi (R² Score):** {metrics['R2'] * 100:.2f}%")
 
 # Footer
-st.markdown("<div class='footer'>© 2023 Aplikasi Prediksi Harga Rumah | Jasasaja Rumah 123</div>", unsafe_allow_html=True)
+st.markdown("""
+    <div class='footer' style='text-align: center;'>
+        Aplikasi Prediksi Harga Rumah | Jasasaja Rumah 123
+    </div>
+""", unsafe_allow_html=True)
