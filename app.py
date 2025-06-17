@@ -47,6 +47,10 @@ st.markdown("""
 
 # Judul
 st.title("🏠 Prediksi Harga Rumah")
+st.markdown("Tugas Penambangan Data ")
+st.markdown("Nama Mahasiswa : Muhammad Lathif")
+st.markdown("Nama Mahasiswa : Fadmada Ananta Maharani")
+st.markdown("=============================================================")
 st.markdown("Masukkan detail properti untuk memprediksi harga dalam Rupiah")
 
 # Form Input
