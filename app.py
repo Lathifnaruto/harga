@@ -47,6 +47,7 @@ st.markdown("""
 
 # Judul
 st.title("🏠 Prediksi Harga Rumah")
+st.markdown("=============================================================")
 st.markdown("Tugas Penambangan Data ")
 st.markdown("Nama Mahasiswa : Muhammad Lathif")
 st.markdown("Nama Mahasiswa : Fadmada Ananta Maharani")
