@@ -45,18 +45,21 @@ st.markdown("""
         min-height: 100vh;
     }
     
-    /* Main Container */
-    .main .block-container {
-        background-color: var(--primary);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        border-radius: 12px;
-        padding: 2rem;
-        margin-top: 1.5rem;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-        border: 1px solid var(--border);
-    }
+   .main .block-container {
+    /* existing styles */
+    background-color: var(--primary);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    
+    /* NEW: white border */
+    border: 2px solid white; /* 👈 ini tambahan penting */
+}
+
     
     /* Typography */
     h1, h2, h3, h4, h5, h6 {
