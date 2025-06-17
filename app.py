@@ -35,7 +35,7 @@ st.markdown("""
     /* Base App Styling */
     .stApp {
         background: linear-gradient(rgba(15, 23, 42, 0.85), 
-                    url('https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2080&q=80');
+                    url('https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80');
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
