@@ -177,6 +177,30 @@ st.markdown("""
         margin-top: 2rem;
         border-top: 1px solid var(--border);
     }
+
+    /* Aqua-themed result box */
+.aqua-price-box {
+    padding: 30px;
+    background: linear-gradient(135deg, #00FFFF, #00BFFF);
+    border-radius: 12px;
+    text-align: center;
+    border: 2px solid #00CED1;
+    margin: 25px 0;
+    color: #003366 !important;
+    box-shadow: 0 6px 20px rgba(0, 191, 255, 0.2);
+}
+
+.aqua-price-box h2 {
+    color: #003366 !important;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.aqua-price-box p {
+    color: #003366 !important;
+    font-weight: 500;
+}
     
     /* Data Tables */
     .dataframe {
@@ -264,35 +288,26 @@ if submit:
     if land_size == 0 or building_size == 0:
         st.warning("Luas tanah dan bangunan tidak boleh nol!")
     else:
-        # Persiapkan input untuk model
-        input_dict = {
-            'bedrooms': bedrooms,
-            'bathrooms': bathrooms,
-            'land_size_m2': land_size,
-            'building_size_m2': building_size,
-            'floors': floors,
-            'building_age': building_age,
-            'garages': garages,
-            'property_type': encode_map['property_type'].get(property_type, 0),
-            'furnishing': encode_map['furnishing'].get(furnishing, 1),
-            'property_condition': encode_map['property_condition'].get(property_condition, 2)
-        }
-
-        data_input = pd.DataFrame([input_dict])[features]
-
-        with st.spinner("🔄 Memproses prediksi..."):
-            harga_prediksi = model.predict(data_input)[0]
-            harga_rupiah = f"Rp {harga_prediksi:,.0f}".replace(",", ".")
+        # ... (previous prediction code remains the same until the result box)
 
         st.divider()
         st.subheader("💰 Estimasi Harga Rumah")
         
-        # Box hasil prediksi
+        # Box hasil prediksi dengan desain aqua
         st.markdown(
             f"""
-            <div class="result-box">
-                <h2>🏡 {harga_rupiah}</h2>
-                <p>Perkiraan berdasarkan data properti yang Anda masukkan</p>
+            <div class="result-box" style="
+                background: linear-gradient(135deg, #00FFFF, #00BFFF);
+                border: 2px solid #00CED1;
+                color: #003366 !important;
+            ">
+                <h2 style="
+                    color: #003366 !important;
+                    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+                    font-size: 2.2rem;
+                    margin-bottom: 0.5rem;
+                ">🏡 {harga_rupiah}</h2>
+                <p style="color: #003366; font-weight: 500;">Perkiraan berdasarkan data properti yang Anda masukkan</p>
             </div>
             """,
             unsafe_allow_html=True
