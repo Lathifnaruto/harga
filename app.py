@@ -101,14 +101,15 @@ st.markdown("""
     }
     
     .stButton>button {
-        background-color: var(--accent) !important;
-        color: white !important;
-        transition: all 0.3s;
-        border: none !important;
-        border-radius: 8px !important;
-        padding: 0.5rem 1rem !important;
-    }
-    
+    background-color: var(--accent) !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 0.5rem 1rem !important;
+}   
     .stButton>button:hover {
         transform: translateY(-1px);
         box-shadow: 0 2px 6px rgba(79, 139, 249, 0.3);
