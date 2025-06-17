@@ -17,29 +17,30 @@ st.set_page_config(page_title="Prediksi Harga Rumah", page_icon="🏠", layout="
 
 # --- Custom CSS untuk Background Transparan dengan Gambar Rumah Mewah ---
 # --- Custom CSS for Dark Theme ---
-# --- Custom CSS for Dark Theme with Luxury Home Background ---
 st.markdown("""
     <style>
     :root {
         /* Color Palette */
-        --primary: rgba(30, 34, 46, 0.88);       /* Dark slate blue with transparency */
-        --secondary: rgba(40, 44, 58, 0.92);     /* Slightly lighter dark */
-        --text: #f8fafc;                        /* Pure white for text */
-        --text-secondary: #cbd5e1;              /* Lighter gray for secondary text */
-        --accent: #6366f1;                      /* Vibrant indigo for accents */
-        --accent-light: #818cf8;                /* Lighter accent */
-        --card: rgba(15, 23, 42, 0.85);        /* Dark card background with transparency */
-        --border: rgba(100, 116, 139, 0.3);     /* Subtle border color */
+        --primary: rgba(30, 34, 46, 0.95);       /* Dark slate blue */
+        --secondary: rgba(40, 44, 58, 0.98);     /* Slightly lighter dark */
+        --text: #e2e8f0;                        /* Soft white for text */
+        --text-secondary: #94a3b8;               /* Lighter gray for secondary text */
+        --accent: #4f46e5;                       /* Vibrant indigo for accents */
+        --accent-light: #6366f1;                 /* Lighter accent */
+        --card: rgba(26, 32, 44, 0.98);         /* Dark card background */
+        --border: rgba(74, 85, 104, 0.3);        /* Subtle border color */
+        --success: #10b981;                      /* Green for success messages */
+        --warning: #f59e0b;                      /* Amber for warnings */
+        --error: #ef4444;                        /* Red for errors */
     }
     
     /* Base App Styling */
     .stApp {
-        background: linear-gradient(rgba(15, 23, 42, 0.85), 
-                    url('https://images.unsplash.com/photo-1600607688969-a5bfcd646154?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80');
+        background: linear-gradient(rgba(30, 34, 46, 0.95), 
+                    url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
-        background-repeat: no-repeat;
         color: var(--text);
         min-height: 100vh;
     }
@@ -47,30 +48,165 @@ st.markdown("""
     /* Main Container */
     .main .block-container {
         background-color: var(--primary);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border-radius: 16px;
-        padding: 2.5rem;
-        margin-top: 2rem;
-        margin-bottom: 2rem;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border-radius: 12px;
+        padding: 2rem;
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
         border: 1px solid var(--border);
+    }
+    
+    /* Typography */
+    h1, h2, h3, h4, h5, h6 {
+        color: var(--text) !important;
+        font-weight: 600 !important;
+    }
+    
+    p {
+        color: var(--text-secondary);
     }
     
     /* Result Box */
     .result-box {
-        padding: 30px;
-        background: linear-gradient(135deg, var(--card), rgba(30, 41, 59, 0.9));
-        backdrop-filter: blur(6px);
-        border-radius: 16px;
+        padding: 25px;
+        background: linear-gradient(135deg, var(--card), var(--secondary));
+        backdrop-filter: blur(4px);
+        border-radius: 12px;
         text-align: center;
         border: 1px solid var(--accent-light);
-        margin: 25px 0;
+        margin: 20px 0;
         color: white !important;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
     
-    /* ... (keep the rest of your CSS the same) ... */
+    .result-box h2 {
+        color: white !important;
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Form Elements */
+    .stTextInput input, 
+    .stNumberInput input, 
+    .stSelectbox select {
+        background-color: var(--secondary) !important;
+        border: 1px solid var(--border) !important;
+        color: var(--text) !important;
+        border-radius: 8px !important;
+        padding: 8px 12px !important;
+    }
+    
+    label {
+        color: var(--text) !important;
+        margin-bottom: 0.25rem !important;
+    }
+    
+    /* Buttons */
+    .stButton>button {
+        background-color: var(--accent) !important;
+        color: white !important;
+        font-weight: 600 !important;
+        border: none !important;
+        border-radius: 8px !important;
+        padding: 0.75rem 1.5rem !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .stButton>button:hover {
+        background-color: var(--accent-light) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3) !important;
+    }
+    
+    /* Similar Property Cards */
+    .similar-property {
+        background: var(--card);
+        padding: 1.25rem;
+        border-radius: 10px;
+        margin: 1rem 0;
+        border-left: 4px solid var(--accent);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+    
+    .similar-property:hover {
+        transform: translateY(-3px);
+    }
+    
+    .similar-property h4 {
+        color: var(--text) !important;
+        margin-bottom: 0.5rem;
+    }
+    
+    .similar-property a {
+        color: var(--accent-light) !important;
+        text-decoration: none;
+        font-weight: 500;
+    }
+    
+    /* Notifications */
+    .stAlert {
+        border-radius: 8px !important;
+    }
+    
+    .stWarning {
+        background-color: rgba(245, 158, 11, 0.1) !important;
+        border-left: 4px solid var(--warning) !important;
+    }
+    
+    .stSuccess {
+        background-color: rgba(16, 185, 129, 0.1) !important;
+        border-left: 4px solid var(--success) !important;
+    }
+    
+    .stError {
+        background-color: rgba(239, 68, 68, 0.1) !important;
+        border-left: 4px solid var(--error) !important;
+    }
+    
+    /* Footer */
+    .footer {
+        background-color: rgba(26, 32, 44, 0.9);
+        text-align: center;
+        font-size: 0.85em;
+        color: var(--text-secondary) !important;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-top: 2rem;
+        border-top: 1px solid var(--border);
+    }
+    
+    /* Data Tables */
+    .dataframe {
+        background-color: var(--card) !important;
+        color: var(--text) !important;
+    }
+    
+    /* Divider */
+    .stDivider>div>div>div {
+        background-color: var(--accent) !important;
+        height: 2px !important;
+    }
+    
+    /* Spinner */
+    .stSpinner>div>div {
+        border-color: var(--accent) transparent transparent transparent !important;
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .main .block-container {
+            padding: 1.5rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .result-box {
+            padding: 1rem;
+        }
+    }
     </style>
 """, unsafe_allow_html=True)
 
