@@ -102,7 +102,7 @@ st.markdown("""
     
     .stButton>button {
     background-color: var(--accent) !important;
-    color: #ffffff !important;
+    color: yellow !important;
     font-weight: 600 !important;
     text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
     transition: all 0.3s;
