@@ -20,31 +20,34 @@ st.markdown("""
 <style>
 
 /* Property Link Button Styles */
-.property-link-btn {
-    display: inline-block;
-    background-color: var(--accent);
-    color: white !important;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    text-decoration: none !important;
-    font-weight: 500;
-    margin-top: 0.5rem;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
+ .property-link-btn {
+        display: inline-block;
+        background-color: white !important;
+        color: #2563eb !important;  /* Blue text */
+        padding: 0.5rem 1.25rem;
+        border-radius: 8px;
+        text-decoration: none !important;
+        font-weight: 600;
+        margin-top: 0.75rem;
+        transition: all 0.3s ease;
+        border: 2px solid #2563eb !important;
+        cursor: pointer;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
+    }
 
-.property-link-btn:hover {
-    background-color: var(--accent-light);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
+    .property-link-btn:hover {
+        background-color: #f8fafc !important;
+        color: #1d4ed8 !important;
+        border-color: #1d4ed8 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(29, 78, 216, 0.2);
+    }
 
-.property-link-btn:active {
-    transform: translateY(0);
-}
+    .property-link-btn:active {
+        transform: translateY(0);
+    }
+    
 .animated-banner {
     width: 100%;
     overflow: hidden;
@@ -171,7 +174,9 @@ if submit:
     <p>🛏️ {int(prop['bedrooms'])} Kamar | 🚿 {int(prop['bathrooms'])} Kamar Mandi</p>
     <p>📐 Luas Tanah: {prop['land_size_m2']} m² | Luas Bangunan: {prop['building_size_m2']} m²</p>
     <p>💰 <strong>Rp {prop['price_in_rp']:,.0f}</strong></p>
-    <a class="property-link-btn" href="{prop['url']}" target="_blank">🔗 Lihat Detail Properti</a>
+     <a class="property-link-btn" href="{prop['url']}" target="_blank">
+        <span style="margin-right: 5px;">🔍</span> Lihat Detail Properti
+    </a>
 </div>
 """, unsafe_allow_html=True)
             else:
