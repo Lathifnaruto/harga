@@ -77,7 +77,7 @@ st.markdown("""
 
 # Judul
 st.title("🏠 Prediksi Harga Rumah")
-st.markdown("=============================================")
+st.markdown("=======================================================")
 st.markdown("Masukkan detail properti untuk memprediksi harga dalam Rupiah")
 
 # Form Input
