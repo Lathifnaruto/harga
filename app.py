@@ -58,8 +58,12 @@ st.markdown("""
         text-align: center;
         border: 1px solid var(--accent);
         margin: 20px 0;
-        color: var(--text);
+        color: white !important;
         box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    
+    .result-box h2 {
+        color: white !important;
     }
     
     /* Similar property cards */
