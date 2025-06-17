@@ -57,7 +57,7 @@ st.markdown("""
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
     
     /* NEW: white border */
-    border: 2px solid white; /* 👈 ini tambahan penting */
+    border: 10px solid white; /* 👈 ini tambahan penting */
 }
 
     
