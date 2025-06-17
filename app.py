@@ -41,7 +41,7 @@ st.markdown("""
 }
 </style>
 <div class="animated-banner">
-    <div class="animated-text">SELAMAT DATANG DI PREDIKSI HARGA RUMAH</div>
+    <div class="animated-text">SELAMAT DATANG DI APLIKASI PREDIKSI HARGA RUMAH</div>
 </div>
 """, unsafe_allow_html=True)
 
