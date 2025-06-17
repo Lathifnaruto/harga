@@ -18,6 +18,33 @@ st.set_page_config(page_title="Prediksi Harga Rumah", page_icon="🏠", layout="
 # Tambahkan animasi teks berjalan modern
 st.markdown("""
 <style>
+
+/* Property Link Button Styles */
+.property-link-btn {
+    display: inline-block;
+    background-color: var(--accent);
+    color: white !important;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    text-decoration: none !important;
+    font-weight: 500;
+    margin-top: 0.5rem;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.property-link-btn:hover {
+    background-color: var(--accent-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.property-link-btn:active {
+    transform: translateY(0);
+}
 .animated-banner {
     width: 100%;
     overflow: hidden;
@@ -138,15 +165,15 @@ if submit:
                 similar_properties = similar_properties.sort_values('price_diff').head(3)
                 for _, prop in similar_properties.iterrows():
                     st.markdown(f"""
-                    <div class="similar-property">
-                        <h4>{prop['title']}</h4>
-                        <p>📍 {prop['address']}</p>
-                        <p>🏦 {int(prop['bedrooms'])} Kamar | 🚿 {int(prop['bathrooms'])} Kamar Mandi</p>
-                        <p>📊 Luas Tanah: {prop['land_size_m2']} m² | Luas Bangunan: {prop['building_size_m2']} m²</p>
-                        <p>💰 <strong>Rp {prop['price_in_rp']:,.0f}</strong></p>
-                        <a href="{prop['url']}" target="_blank">🔗 Lihat Detail Properti</a>
-                    </div>
-                    """, unsafe_allow_html=True)
+<div class="similar-property">
+    <h4>{prop['title']}</h4>
+    <p>📍 {prop['address']}</p>
+    <p>🛏️ {int(prop['bedrooms'])} Kamar | 🚿 {int(prop['bathrooms'])} Kamar Mandi</p>
+    <p>📐 Luas Tanah: {prop['land_size_m2']} m² | Luas Bangunan: {prop['building_size_m2']} m²</p>
+    <p>💰 <strong>Rp {prop['price_in_rp']:,.0f}</strong></p>
+    <a class="property-link-btn" href="{prop['url']}" target="_blank">🔗 Lihat Detail Properti</a>
+</div>
+""", unsafe_allow_html=True)
             else:
                 st.info("Tidak ditemukan properti serupa dalam database kami.")
         except Exception as e:
