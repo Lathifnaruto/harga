@@ -15,43 +15,71 @@ metrics = model_data.get('metrics', {})
 # Streamlit Config
 st.set_page_config(page_title="Prediksi Harga Rumah", page_icon="🏠", layout="centered")
 
-# Tambahkan animasi teks berjalan modern
+# ======= Dark Mode Style & Animasi =======
 st.markdown("""
 <style>
+body {
+    background-color: #0f172a;
+    color: #ffffff;
+}
+html, body, [class*="css"]  {
+    background-color: #0f172a !important;
+    color: #ffffff !important;
+}
 
-/* Property Link Button Styles */
- .property-link-btn {
-        display: inline-block;
-        background-color: white !important;
-        color: #2563eb !important;  /* Blue text */
-        padding: 0.5rem 1.25rem;
-        border-radius: 8px;
-        text-decoration: none !important;
-        font-weight: 600;
-        margin-top: 0.75rem;
-        transition: all 0.3s ease;
-        border: 2px solid #2563eb !important;
-        cursor: pointer;
-        text-align: center;
-        box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
-    }
+h1, h2, h3, h4, h5, h6, label, p, div, span {
+    color: #f1f5f9 !important;
+}
 
-    .property-link-btn:hover {
-        background-color: #f8fafc !important;
-        color: #1d4ed8 !important;
-        border-color: #1d4ed8 !important;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(29, 78, 216, 0.2);
-    }
+/* Form input background */
+.stTextInput input, .stNumberInput input, .stSelectbox div[data-baseweb="select"] {
+    background-color: #1e293b !important;
+    color: #ffffff !important;
+    border: 1px solid #334155;
+    border-radius: 6px;
+}
 
-    .property-link-btn:active {
-        transform: translateY(0);
-    }
-    
+/* Buttons */
+.stButton button {
+    background-color: #2563eb !important;
+    color: white !important;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.stButton button:hover {
+    background-color: #1d4ed8 !important;
+}
+
+/* Property link button */
+.property-link-btn {
+    display: inline-block;
+    background-color: white !important;
+    color: #2563eb !important;
+    padding: 0.5rem 1.25rem;
+    border-radius: 8px;
+    text-decoration: none !important;
+    font-weight: 600;
+    margin-top: 0.75rem;
+    transition: all 0.3s ease;
+    border: 2px solid #2563eb !important;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
+}
+
+.property-link-btn:hover {
+    background-color: #f8fafc !important;
+    color: #1d4ed8 !important;
+    border-color: #1d4ed8 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(29, 78, 216, 0.2);
+}
+
 .animated-banner {
     width: 100%;
     overflow: hidden;
-    background-color: rgba(79, 70, 229, 0.2);
+    background-color: rgba(37, 99, 235, 0.2);
     padding: 10px 0;
     border-radius: 10px;
     margin-bottom: 20px;
@@ -186,7 +214,7 @@ if submit:
 
 # Footer
 st.markdown("""
-    <div class='footer' style='text-align: center;'>
+    <div class='footer' style='text-align: center; color: #94a3b8; margin-top: 2rem;'>
         Aplikasi Prediksi Harga Rumah | Jasasaja Rumah 123
     </div>
 """, unsafe_allow_html=True)
