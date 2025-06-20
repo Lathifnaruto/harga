@@ -15,7 +15,7 @@ metrics = model_data.get('metrics', {})
 # Streamlit Config
 st.set_page_config(page_title="Prediksi Harga Rumah", page_icon="🏠", layout="centered")
 
-# --- Custom CSS untuk Background Transparan dengan Gambar Rumah Mewah ---
+# --- Custom CSS untuk Background Biru Dongker ---
 st.markdown("""
     <style>
     :root {
@@ -25,27 +25,22 @@ st.markdown("""
         --accent: #4f8bf9;
         --card: rgba(255, 255, 255, 0.98);
         --border: rgba(0, 0, 0, 0.1);
+        --dark-blue: #0a1f3d;
     }
     
     .stApp {
-        background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), 
-                    url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
+        background-color: var(--dark-blue) !important;
         color: var(--text);
     }
     
     /* Main container styling */
     .main .block-container {
         background-color: var(--primary);
-        backdrop-filter: blur(5px);
-        -webkit-backdrop-filter: blur(5px);
         border-radius: 12px;
         padding: 2rem;
         margin-top: 1.5rem;
         margin-bottom: 1.5rem;
-        box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
+        box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.1);
         border: 1px solid var(--border);
     }
     
@@ -53,7 +48,6 @@ st.markdown("""
     .result-box {
         padding: 25px;
         background-color: var(--card);
-        backdrop-filter: blur(2px);
         border-radius: 12px;
         text-align: center;
         border: 1px solid var(--accent);
@@ -65,7 +59,6 @@ st.markdown("""
     /* Similar property cards */
     .similar-property {
         background-color: var(--secondary);
-        backdrop-filter: blur(2px);
         padding: 15px;
         border-radius: 8px;
         margin: 15px 0;
