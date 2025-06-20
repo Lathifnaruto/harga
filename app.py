@@ -15,72 +15,170 @@ metrics = model_data.get('metrics', {})
 # Streamlit Config
 st.set_page_config(page_title="Prediksi Harga Rumah", page_icon="🏠", layout="centered")
 
-# --- Custom CSS with Aqua Price Box ---
+# --- Custom CSS untuk Background Transparan dengan Gambar Rumah Mewah ---
 st.markdown("""
     <style>
     :root {
-        /* Color Palette */
-        --primary: rgba(30, 34, 46, 0.95);
-        --secondary: rgba(40, 44, 58, 0.98);
-        --text: #e2e8f0;
-        --text-secondary: #94a3b8;
-        --accent: #4f46e5;
-        --accent-light: #6366f1;
-        --card: rgba(26, 32, 44, 0.98);
-        --border: rgba(74, 85, 104, 0.3);
-        --success: #10b981;
-        --warning: #f59e0b;
-        --error: #ef4444;
+        --primary: rgba(255, 255, 255, 0.95);
+        --secondary: rgba(245, 245, 245, 0.98);
+        --text: #333333;
+        --accent: #4f8bf9;
+        --card: rgba(255, 255, 255, 0.98);
+        --border: rgba(0, 0, 0, 0.1);
     }
     
     .stApp {
-        background: linear-gradient(rgba(30, 34, 46, 0.95), 
+        background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), 
                     url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
         color: var(--text);
-        min-height: 100vh;
     }
     
-    /* Aqua Price Box */
-    .aqua-price-box {
-        padding: 30px;
-        background: linear-gradient(135deg, #00FFFF, #00BFFF);
-        border-radius: 12px;
-        text-align: center;
-        border: 2px solid #00CED1;
-        margin: 25px 0;
-        color: #003366 !important;
-        box-shadow: 0 6px 20px rgba(0, 191, 255, 0.2);
-    }
-    
-    .aqua-price-box h2 {
-        color: #003366 !important;
-        text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-        font-size: 2.2rem;
-        margin-bottom: 0.5rem;
-    }
-    
-    .aqua-price-box p {
-        color: #003366 !important;
-        font-weight: 500;
-    }
-    
-    /* Rest of your existing CSS... */
+    /* Main container styling */
     .main .block-container {
         background-color: var(--primary);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
         border-radius: 12px;
         padding: 2rem;
         margin-top: 1.5rem;
         margin-bottom: 1.5rem;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
         border: 1px solid var(--border);
     }
     
-    /* ... (keep all your other existing CSS styles) ... */
+    /* Result box styling */
+    .result-box {
+        padding: 25px;
+        background-color: var(--card);
+        backdrop-filter: blur(2px);
+        border-radius: 12px;
+        text-align: center;
+        border: 1px solid var(--accent);
+        margin: 20px 0;
+        color: var(--text);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    
+    /* Similar property cards */
+    .similar-property {
+        background-color: var(--secondary);
+        backdrop-filter: blur(2px);
+        padding: 15px;
+        border-radius: 8px;
+        margin: 15px 0;
+        border-left: 4px solid var(--accent);
+        color: var(--text);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    
+    .similar-property h4 {
+        color: var(--text) !important;
+    }
+    
+    .similar-property a {
+        color: var(--accent) !important;
+        text-decoration: none;
+    }
+    
+    .similar-property a:hover {
+        text-decoration: underline;
+    }
+    
+    /* Form elements styling */
+    .st-bb, .st-at, .st-ae, .st-af, .st-ag, .st-ah, .st-ai, .st-aj, .st-ak, .st-al, 
+    .st-am, .st-an, .st-ao, .st-ap, .st-aq, .st-ar, .st-as,
+    .stNumberInput, .stSelectbox, .stTextInput {
+        background-color: var(--secondary) !important;
+        border: 1px solid var(--border) !important;
+        color: var(--text) !important;
+    }
+    
+    .stNumberInput input, .stSelectbox select, .stTextInput input {
+        color: var(--text) !important;
+    }
+    
+    .stButton>button {
+        background-color: var(--accent) !important;
+        color: white !important;
+        transition: all 0.3s;
+        border: none !important;
+        border-radius: 8px !important;
+        padding: 0.5rem 1rem !important;
+    }
+    
+    .stButton>button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 6px rgba(79, 139, 249, 0.3);
+    }
+    
+    /* Notification styling */
+    .stWarning {
+        background-color: #fff3cd !important;
+        color: #856404 !important;
+        border-left: 4px solid #ffeeba !important;
+    }
+    
+    .stSuccess {
+        background-color: #d4edda !important;
+        color: #155724 !important;
+        border-left: 4px solid #c3e6cb !important;
+    }
+    
+    .stError {
+        background-color: #f8d7da !important;
+        color: #721c24 !important;
+        border-left: 4px solid #f5c6cb !important;
+    }
+    
+    /* Footer styling */
+    .footer {
+        background-color: rgba(255, 255, 255, 0.9);
+        text-align: center;
+        font-size: 0.85em;
+        color: #666666;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 30px;
+        border-top: 1px solid var(--border);
+    }
+    
+    /* Divider styling */
+    .stDivider>div>div>div {
+        background-color: var(--accent) !important;
+    }
+    
+    /* Text styling */
+    h1, h2, h3, h4, h5, h6 {
+        color: var(--text) !important;
+    }
+    
+    /* Input labels */
+    label {
+        color: var(--text) !important;
+    }
+    
+    /* Spinner color */
+    .stSpinner>div>div {
+        border-color: var(--accent) transparent transparent transparent !important;
+    }
+    
+    /* Bar chart styling */
+    .st-eb {
+        background-color: var(--card) !important;
+    }
+    
+    /* Dataframe styling */
+    .dataframe {
+        background-color: var(--card) !important;
+    }
+    
+    /* Make sure all text is visible */
+    .st-bh, .st-bi, .st-bj, .st-bk, .st-bl, .st-bm, .st-bn, .st-bo, .st-bp, .st-bq, .st-br, .st-bs, .st-bt, .st-bu, .st-bv, .st-bw, .st-bx, .st-by, .st-bz {
+        color: var(--text) !important;
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -112,18 +210,24 @@ with st.form("form_rumah"):
 # --- Feature Importance Visualization ---
 st.subheader("📊 Pentingnya Fitur dalam Prediksi Harga")
 
+# Dapatkan importance scores dari model
 feature_importance = model.feature_importances_
 importance_df = pd.DataFrame({
     'Fitur': features,
     'Pengaruh': feature_importance
 }).sort_values('Pengaruh', ascending=False)
 
+# Tampilkan dalam bentuk bar chart
 st.bar_chart(importance_df.set_index('Fitur'))
+
+# Tampilkan penjelasan
 st.markdown("""
 **Penjelasan Pentingnya Fitur:**
 - Nilai di atas menunjukkan seberapa besar pengaruh setiap fitur terhadap prediksi harga rumah
 - Semakin tinggi nilainya, semakin besar pengaruh fitur tersebut dalam menentukan harga
 """)
+
+# Tampilkan tabel detail
 st.write("Detail Pengaruh Setiap Fitur:")
 st.dataframe(importance_df.style.format({'Pengaruh': '{:.2%}'}))
 
@@ -132,6 +236,7 @@ if submit:
     if land_size == 0 or building_size == 0:
         st.warning("Luas tanah dan bangunan tidak boleh nol!")
     else:
+        # Persiapkan input untuk model
         input_dict = {
             'bedrooms': bedrooms,
             'bathrooms': bathrooms,
@@ -154,10 +259,10 @@ if submit:
         st.divider()
         st.subheader("💰 Estimasi Harga Rumah")
         
-        # Aqua-themed price box
+        # Box hasil prediksi
         st.markdown(
             f"""
-            <div class="aqua-price-box">
+            <div class="result-box">
                 <h2>🏡 {harga_rupiah}</h2>
                 <p>Perkiraan berdasarkan data properti yang Anda masukkan</p>
             </div>
@@ -165,9 +270,11 @@ if submit:
             unsafe_allow_html=True
         )
 
-        # --- Similar Properties ---
+        # --- Cari Properti Serupa ---
         st.subheader("🔍 Properti Serupa")
+        
         try:
+            # Cari properti dengan kriteria yang mirip
             similar_properties = df[
                 (df['bedrooms'].between(bedrooms-1, bedrooms+1)) &
                 (df['bathrooms'].between(bathrooms-1, bathrooms+1)) &
@@ -177,6 +284,7 @@ if submit:
             ]
             
             if not similar_properties.empty:
+                # Ambil 3 properti terdekat
                 similar_properties['price_diff'] = abs(similar_properties['price_in_rp'] - harga_prediksi)
                 similar_properties = similar_properties.sort_values('price_diff').head(3)
                 
@@ -198,9 +306,12 @@ if submit:
         except Exception as e:
             st.error(f"Terjadi kesalahan saat mencari properti serupa: {str(e)}")
 
+        # --- Evaluasi Model ---
         if metrics:
             st.subheader("📊 Evaluasi Model")
             st.success(f"**Akurasi Pada Score Prediksi (R² Score):** {metrics['R2'] * 100:.2f}%")
 
 # --- Footer ---
 st.markdown("<div class='footer'>© 2023 Aplikasi Prediksi Harga Rumah | Jasasaja Rumah 123</div>", unsafe_allow_html=True)
+
+ubah warna tulisan prediksi harga button pencarian menjadi putih
