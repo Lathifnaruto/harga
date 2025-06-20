@@ -15,43 +15,50 @@ metrics = model_data.get('metrics', {})
 # Streamlit Config
 st.set_page_config(page_title="Prediksi Harga Rumah", page_icon="🏠", layout="centered")
 
-# ======= Dark Mode Style & Animasi =======
+# ======= Gray Transparent Style =======
 st.markdown("""
 <style>
-body {
-    background-color: #0f172a;
-    color: #ffffff;
-}
-html, body, [class*="css"]  {
-    background-color: #0f172a !important;
-    color: #ffffff !important;
-}
-
-h1, h2, h3, h4, h5, h6, label, p, div, span {
-    color: #f1f5f9 !important;
-}
-
-/* Form input background */
-.stTextInput input, .stNumberInput input, .stSelectbox div[data-baseweb="select"] {
-    background-color: #1e293b !important;
-    color: #ffffff !important;
-    border: 1px solid #334155;
-    border-radius: 6px;
+:root {
+    /* Color Palette */
+    --primary: rgba(75, 85, 99, 0.85);
+    --secondary: rgba(55, 65, 81, 0.9);
+    --text: #f1f5f9;
+    --text-secondary: #e2e8f0;
+    --accent: #3b82f6;
+    --accent-light: #60a5fa;
+    --card: rgba(55, 65, 81, 0.9);
+    --border: rgba(100, 116, 139, 0.3);
+    --success: #10b981;
+    --warning: #f59e0b;
+    --error: #ef4444;
 }
 
-/* Buttons */
-.stButton button {
-    background-color: #2563eb !important;
-    color: white !important;
-    border-radius: 8px;
-    font-weight: bold;
+.stApp {
+    background: linear-gradient(rgba(100, 100, 100, 0.7), 
+                rgba(100, 100, 100, 0.7)),
+                url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: var(--text);
+    min-height: 100vh;
 }
 
-.stButton button:hover {
-    background-color: #1d4ed8 !important;
+/* Main Container */
+.main .block-container {
+    background-color: var(--primary) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border);
 }
 
-/* Property link button */
+/* White Property Link Button */
 .property-link-btn {
     display: inline-block;
     background-color: white !important;
@@ -76,10 +83,43 @@ h1, h2, h3, h4, h5, h6, label, p, div, span {
     box-shadow: 0 4px 12px rgba(29, 78, 216, 0.2);
 }
 
+/* Result Box */
+.result-box {
+    padding: 30px;
+    background: linear-gradient(135deg, var(--card), var(--secondary));
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid var(--accent-light);
+    margin: 25px 0;
+    color: white !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Form Elements */
+.stTextInput input, 
+.stNumberInput input, 
+.stSelectbox select {
+    background-color: var(--secondary) !important;
+    border: 1px solid var(--border) !important;
+    color: var(--text) !important;
+    border-radius: 8px !important;
+    padding: 8px 12px !important;
+}
+
+/* Footer */
+.footer {
+    text-align: center !important;
+    color: var(--text-secondary) !important;
+    padding: 1rem;
+    margin-top: 2rem;
+    font-size: 0.9em;
+}
+
+/* Animation Banner */
 .animated-banner {
     width: 100%;
     overflow: hidden;
-    background-color: rgba(37, 99, 235, 0.2);
+    background-color: rgba(59, 130, 246, 0.2);
     padding: 10px 0;
     border-radius: 10px;
     margin-bottom: 20px;
@@ -98,12 +138,13 @@ h1, h2, h3, h4, h5, h6, label, p, div, span {
     100% { transform: translateX(-100%); }
 }
 </style>
+
 <div class="animated-banner">
     <div class="animated-text">SELAMAT DATANG DI APLIKASI PREDIKSI HARGA RUMAH</div>
 </div>
 """, unsafe_allow_html=True)
 
-# Judul
+# Header
 st.title("🏠 Prediksi Harga Rumah")
 st.markdown("=======================================================")
 st.markdown("Masukkan detail properti untuk memprediksi harga dalam Rupiah")
@@ -198,7 +239,7 @@ if submit:
     <p>🛏️ {int(prop['bedrooms'])} Kamar | 🚿 {int(prop['bathrooms'])} Kamar Mandi</p>
     <p>📐 Luas Tanah: {prop['land_size_m2']} m² | Luas Bangunan: {prop['building_size_m2']} m²</p>
     <p>💰 <strong>Rp {prop['price_in_rp']:,.0f}</strong></p>
-     <a class="property-link-btn" href="{prop['url']}" target="_blank">
+    <a class="property-link-btn" href="{prop['url']}" target="_blank">
         <span style="margin-right: 5px;">🔍</span> Lihat Detail Properti
     </a>
 </div>
@@ -214,7 +255,7 @@ if submit:
 
 # Footer
 st.markdown("""
-    <div class='footer' style='text-align: center; color: #94a3b8; margin-top: 2rem;'>
-        Aplikasi Prediksi Harga Rumah | Jasasaja Rumah 123
-    </div>
+<div class='footer'>
+    Aplikasi Prediksi Harga Rumah | Jasasaja Rumah 123
+</div>
 """, unsafe_allow_html=True)
