@@ -221,6 +221,12 @@ st.markdown("""
 st.write("Detail Pengaruh Setiap Fitur:")
 st.dataframe(importance_df.style.format({'Pengaruh': '{:.2%}'}))
 
+# Tambahkan di sini - Perbandingan Harga per m²
+st.subheader("📈 Perbandingan Harga per m²")
+df['price_per_m2'] = df['price_in_rp'] / df['building_size_m2']
+avg_price = df.groupby('kecamatan')['price_per_m2'].mean().reset_index()
+st.bar_chart(avg_price.set_index('kecamatan'))
+
 # Prediction
 if submit:
     if land_size == 0 or building_size == 0:
