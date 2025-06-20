@@ -15,7 +15,7 @@ metrics = model_data.get('metrics', {})
 # Streamlit Config
 st.set_page_config(page_title="Prediksi Harga Rumah", page_icon="🏠", layout="centered")
 
-# ======= Gray Transparent Style =======
+# ======= Gray Transparent Style with White Form Labels =======
 st.markdown("""
 <style>
 :root {
@@ -43,6 +43,23 @@ st.markdown("""
     background-repeat: no-repeat;
     color: var(--text);
     min-height: 100vh;
+}
+
+/* Form Labels - White Text */
+div[data-testid="stForm"] label {
+    color: white !important;
+    font-weight: 500 !important;
+}
+
+/* Form Inputs */
+.stTextInput input, 
+.stNumberInput input, 
+.stSelectbox select {
+    color: white !important;
+    background-color: var(--secondary) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    padding: 8px 12px !important;
 }
 
 /* Main Container */
@@ -93,17 +110,6 @@ st.markdown("""
     margin: 25px 0;
     color: white !important;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-}
-
-/* Form Elements */
-.stTextInput input, 
-.stNumberInput input, 
-.stSelectbox select {
-    background-color: var(--secondary) !important;
-    border: 1px solid var(--border) !important;
-    color: var(--text) !important;
-    border-radius: 8px !important;
-    padding: 8px 12px !important;
 }
 
 /* Footer */
