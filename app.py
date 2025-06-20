@@ -125,10 +125,11 @@ div[data-testid="stForm"] label {
 .animated-banner {
     width: 100%;
     overflow: hidden;
-    background-color: rgba(59, 130, 246, 0.2);
+    background-color: rgba(255, 255, 255, 0.9);  /* Latar belakang putih */
     padding: 10px 0;
     border-radius: 10px;
     margin-bottom: 20px;
+    border: 1px solid #ddd;  /* Tambahkan border */
 }
 .animated-text {
     display: inline-block;
@@ -136,7 +137,7 @@ div[data-testid="stForm"] label {
     animation: slideText 12s linear infinite;
     font-weight: bold;
     font-size: 18px;
-    color: white;
+    color: black !important;  /* Ubah warna teks menjadi hitam */
     padding-left: 100%;
 }
 @keyframes slideText {
