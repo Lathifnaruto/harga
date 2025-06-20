@@ -313,5 +313,3 @@ if submit:
 
 # --- Footer ---
 st.markdown("<div class='footer'>© 2023 Aplikasi Prediksi Harga Rumah | Jasasaja Rumah 123</div>", unsafe_allow_html=True)
-
-ubah warna tulisan prediksi harga button pencarian menjadi putih
