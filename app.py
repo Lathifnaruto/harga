@@ -15,6 +15,10 @@ metrics = model_data.get('metrics', {})
 # Streamlit Config
 st.set_page_config(page_title="Prediksi Harga Rumah", page_icon="🏠", layout="centered")
 
+# Initialize history in session state
+if 'history' not in st.session_state:
+    st.session_state.history = []
+
 # ======= Gray Transparent Style with White Form Labels =======
 st.markdown("""
 <style>
@@ -144,6 +148,31 @@ div[data-testid="stForm"] label {
     0% { transform: translateX(0); }
     100% { transform: translateX(-100%); }
 }
+
+/* History Section */
+.history-item {
+    background-color: rgba(55, 65, 81, 0.7);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border-left: 4px solid var(--accent);
+}
+.history-item:hover {
+    background-color: rgba(55, 65, 81, 0.9);
+}
+.history-timestamp {
+    font-size: 0.85em;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+}
+.history-price {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: var(--accent-light);
+}
+.history-detail-btn {
+    margin-top: 8px !important;
+}
 </style>
 
 <div class="animated-banner">
@@ -216,6 +245,14 @@ if submit:
             harga_prediksi = model.predict(data_input)[0]
             harga_rupiah = f"Rp {harga_prediksi:,.0f}".replace(",", ".")
 
+            # Add to history
+            pred_data = {
+                'timestamp': datetime.now().strftime("%d/%m/%Y %H:%M"),
+                'harga_prediksi': harga_prediksi,
+                'input_data': input_dict
+            }
+            st.session_state.history.append(pred_data)
+
         st.divider()
         st.subheader("💰 Estimasi Harga Rumah")
         st.markdown(f"""
@@ -258,6 +295,23 @@ if submit:
         if metrics:
             st.subheader("📊 Evaluasi Model")
             st.success(f"**Akurasi Pada Score Prediksi (R² Score):** {metrics['R2'] * 100:.2f}%")
+
+# History Section
+with st.expander("📜 History Prediksi", expanded=False):
+    if not st.session_state.history:
+        st.info("Belum ada riwayat prediksi.")
+    else:
+        for idx, item in enumerate(st.session_state.history[::-1]):  # Show newest first
+            with st.container():
+                st.markdown(f"""
+                <div class="history-item">
+                    <div class="history-timestamp">⏱️ {item['timestamp']}</div>
+                    <div class="history-price">💰 Rp {item['harga_prediksi']:,.0f}</div>
+                </div>
+                """, unsafe_allow_html=True)
+                
+                if st.button("Lihat Detail", key=f"detail_{idx}", help="Klik untuk melihat detail input"):
+                    st.json(item['input_data'])
 
 # Footer
 st.markdown("""
