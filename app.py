@@ -152,7 +152,6 @@ div[data-testid="stForm"] label {
 
 # Header
 st.title("🏠 Prediksi Harga Rumah")
-st.markdown("=======================================================")
 st.markdown("Masukkan detail properti untuk memprediksi harga dalam Rupiah")
 
 # Form Input
