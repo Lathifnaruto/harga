@@ -15,80 +15,141 @@ metrics = model_data.get('metrics', {})
 # Streamlit Config
 st.set_page_config(page_title="Prediksi Harga Rumah", page_icon="🏠", layout="centered")
 
-# --- Custom CSS with Aqua Price Box ---
+# ======= Gray Transparent Style =======
 st.markdown("""
-    <style>
-    :root {
-        /* Color Palette */
-        --primary: rgba(30, 34, 46, 0.95);
-        --secondary: rgba(40, 44, 58, 0.98);
-        --text: #e2e8f0;
-        --text-secondary: #94a3b8;
-        --accent: #4f46e5;
-        --accent-light: #6366f1;
-        --card: rgba(26, 32, 44, 0.98);
-        --border: rgba(74, 85, 104, 0.3);
-        --success: #10b981;
-        --warning: #f59e0b;
-        --error: #ef4444;
-    }
-    
-    .stApp {
-        background: linear-gradient(rgba(30, 34, 46, 0.95), 
-                    url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        color: var(--text);
-        min-height: 100vh;
-    }
-    
-    /* Aqua Price Box */
-    .aqua-price-box {
-        padding: 30px;
-        background: linear-gradient(135deg, #00FFFF, #00BFFF);
-        border-radius: 12px;
-        text-align: center;
-        border: 2px solid #00CED1;
-        margin: 25px 0;
-        color: #003366 !important;
-        box-shadow: 0 6px 20px rgba(0, 191, 255, 0.2);
-    }
-    
-    .aqua-price-box h2 {
-        color: #003366 !important;
-        text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-        font-size: 2.2rem;
-        margin-bottom: 0.5rem;
-    }
-    
-    .aqua-price-box p {
-        color: #003366 !important;
-        font-weight: 500;
-    }
-    
-    /* Rest of your existing CSS... */
-    .main .block-container {
-        background-color: var(--primary);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        border-radius: 12px;
-        padding: 2rem;
-        margin-top: 1.5rem;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-        border: 1px solid var(--border);
-    }
-    
-    /* ... (keep all your other existing CSS styles) ... */
-    </style>
+<style>
+:root {
+    /* Color Palette */
+    --primary: rgba(75, 85, 99, 0.85);
+    --secondary: rgba(55, 65, 81, 0.9);
+    --text: #f1f5f9;
+    --text-secondary: #e2e8f0;
+    --accent: #3b82f6;
+    --accent-light: #60a5fa;
+    --card: rgba(55, 65, 81, 0.9);
+    --border: rgba(100, 116, 139, 0.3);
+    --success: #10b981;
+    --warning: #f59e0b;
+    --error: #ef4444;
+}
+
+.stApp {
+    background: linear-gradient(rgba(100, 100, 100, 0.7), 
+                rgba(100, 100, 100, 0.7)),
+                url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: var(--text);
+    min-height: 100vh;
+}
+
+/* Main Container */
+.main .block-container {
+    background-color: var(--primary) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border);
+}
+
+/* White Property Link Button */
+.property-link-btn {
+    display: inline-block;
+    background-color: white !important;
+    color: #2563eb !important;
+    padding: 0.5rem 1.25rem;
+    border-radius: 8px;
+    text-decoration: none !important;
+    font-weight: 600;
+    margin-top: 0.75rem;
+    transition: all 0.3s ease;
+    border: 2px solid #2563eb !important;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
+}
+
+.property-link-btn:hover {
+    background-color: #f8fafc !important;
+    color: #1d4ed8 !important;
+    border-color: #1d4ed8 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(29, 78, 216, 0.2);
+}
+
+/* Result Box */
+.result-box {
+    padding: 30px;
+    background: linear-gradient(135deg, var(--card), var(--secondary));
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid var(--accent-light);
+    margin: 25px 0;
+    color: white !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Form Elements */
+.stTextInput input, 
+.stNumberInput input, 
+.stSelectbox select {
+    background-color: var(--secondary) !important;
+    border: 1px solid var(--border) !important;
+    color: var(--text) !important;
+    border-radius: 8px !important;
+    padding: 8px 12px !important;
+}
+
+/* Footer */
+.footer {
+    text-align: center !important;
+    color: var(--text-secondary) !important;
+    padding: 1rem;
+    margin-top: 2rem;
+    font-size: 0.9em;
+}
+
+/* Animation Banner */
+.animated-banner {
+    width: 100%;
+    overflow: hidden;
+    background-color: rgba(59, 130, 246, 0.2);
+    padding: 10px 0;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+.animated-text {
+    display: inline-block;
+    white-space: nowrap;
+    animation: slideText 12s linear infinite;
+    font-weight: bold;
+    font-size: 18px;
+    color: white;
+    padding-left: 100%;
+}
+@keyframes slideText {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+</style>
+
+<div class="animated-banner">
+    <div class="animated-text">SELAMAT DATANG DI APLIKASI PREDIKSI HARGA RUMAH</div>
+</div>
 """, unsafe_allow_html=True)
 
-# --- Header ---
+# Header
 st.title("🏠 Prediksi Harga Rumah")
+st.markdown("=======================================================")
 st.markdown("Masukkan detail properti untuk memprediksi harga dalam Rupiah")
 
-# --- Form Input ---
+# Form Input
 with st.form("form_rumah"):
     st.subheader("📋 Detail Properti")
     col1, col2 = st.columns(2)
@@ -109,15 +170,13 @@ with st.form("form_rumah"):
 
     submit = st.form_submit_button("🔍 Prediksi Harga")
 
-# --- Feature Importance Visualization ---
+# Feature Importance
 st.subheader("📊 Pentingnya Fitur dalam Prediksi Harga")
-
 feature_importance = model.feature_importances_
 importance_df = pd.DataFrame({
     'Fitur': features,
     'Pengaruh': feature_importance
 }).sort_values('Pengaruh', ascending=False)
-
 st.bar_chart(importance_df.set_index('Fitur'))
 st.markdown("""
 **Penjelasan Pentingnya Fitur:**
@@ -127,7 +186,7 @@ st.markdown("""
 st.write("Detail Pengaruh Setiap Fitur:")
 st.dataframe(importance_df.style.format({'Pengaruh': '{:.2%}'}))
 
-# --- Prediction ---
+# Prediction
 if submit:
     if land_size == 0 or building_size == 0:
         st.warning("Luas tanah dan bangunan tidak boleh nol!")
@@ -153,19 +212,13 @@ if submit:
 
         st.divider()
         st.subheader("💰 Estimasi Harga Rumah")
-        
-        # Aqua-themed price box
-        st.markdown(
-            f"""
-            <div class="aqua-price-box">
-                <h2>🏡 {harga_rupiah}</h2>
-                <p>Perkiraan berdasarkan data properti yang Anda masukkan</p>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+        st.markdown(f"""
+        <div class="result-box">
+            <h2>🏡 {harga_rupiah}</h2>
+            <p>Perkiraan berdasarkan data properti yang Anda masukkan</p>
+        </div>
+        """, unsafe_allow_html=True)
 
-        # --- Similar Properties ---
         st.subheader("🔍 Properti Serupa")
         try:
             similar_properties = df[
@@ -175,26 +228,24 @@ if submit:
                 (df['building_size_m2'].between(building_size*0.8, building_size*1.2)) &
                 (df['floors'] == floors)
             ]
-            
             if not similar_properties.empty:
                 similar_properties['price_diff'] = abs(similar_properties['price_in_rp'] - harga_prediksi)
                 similar_properties = similar_properties.sort_values('price_diff').head(3)
-                
                 for _, prop in similar_properties.iterrows():
-                    with st.container():
-                        st.markdown(f"""
-                        <div class="similar-property">
-                            <h4>{prop['title']}</h4>
-                            <p>📍 {prop['address']}</p>
-                            <p>🛏️ {int(prop['bedrooms'])} Kamar | 🚿 {int(prop['bathrooms'])} Kamar Mandi</p>
-                            <p>📐 Luas Tanah: {prop['land_size_m2']} m² | Luas Bangunan: {prop['building_size_m2']} m²</p>
-                            <p>💰 <strong>Rp {prop['price_in_rp']:,.0f}</strong></p>
-                            <a href="{prop['url']}" target="_blank">🔗 Lihat Detail Properti</a>
-                        </div>
-                        """, unsafe_allow_html=True)
+                    st.markdown(f"""
+<div class="similar-property">
+    <h4>{prop['title']}</h4>
+    <p>📍 {prop['address']}</p>
+    <p>🛏️ {int(prop['bedrooms'])} Kamar | 🚿 {int(prop['bathrooms'])} Kamar Mandi</p>
+    <p>📐 Luas Tanah: {prop['land_size_m2']} m² | Luas Bangunan: {prop['building_size_m2']} m²</p>
+    <p>💰 <strong>Rp {prop['price_in_rp']:,.0f}</strong></p>
+    <a class="property-link-btn" href="{prop['url']}" target="_blank">
+        <span style="margin-right: 5px;">🔍</span> Lihat Detail Properti
+    </a>
+</div>
+""", unsafe_allow_html=True)
             else:
                 st.info("Tidak ditemukan properti serupa dalam database kami.")
-                
         except Exception as e:
             st.error(f"Terjadi kesalahan saat mencari properti serupa: {str(e)}")
 
@@ -202,5 +253,9 @@ if submit:
             st.subheader("📊 Evaluasi Model")
             st.success(f"**Akurasi Pada Score Prediksi (R² Score):** {metrics['R2'] * 100:.2f}%")
 
-# --- Footer ---
-st.markdown("<div class='footer'>© 2023 Aplikasi Prediksi Harga Rumah | Jasasaja Rumah 123</div>", unsafe_allow_html=True)
+# Footer
+st.markdown("""
+<div class='footer'>
+    Aplikasi Prediksi Harga Rumah | Jasasaja Rumah 123
+</div>
+""", unsafe_allow_html=True)
