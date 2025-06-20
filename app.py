@@ -105,7 +105,6 @@ h1, h2, h3, h4, h5, h6, label, p, div, span {
 
 # Judul
 st.title("🏠 Prediksi Harga Rumah")
-st.markdown("=======================================================")
 st.markdown("Masukkan detail properti untuk memprediksi harga dalam Rupiah")
 
 # Form Input
