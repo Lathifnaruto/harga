@@ -67,12 +67,12 @@ div[data-testid="stForm"] h3 {
 
 /* Mengubah warna teks pada expander */
 .stExpanderHeader p {
-    color: white !important;
+    color: black !important;
 }
 
 /* Mengubah warna teks pada alert boxes */
 .stAlert p {
-    color: black !important;
+    color: white !important;
 }
 
 /* Main Container */
