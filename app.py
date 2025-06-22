@@ -86,7 +86,7 @@ div[data-testid="stForm"] button[kind="secondary"]::before {
 
 /* Opsional: mengubah warna saat hover */
 div[data-testid="stForm"] button[kind="secondary"]:hover span {
-    color: white !important;
+    color: black !important;
 }
 
 /* Main Container */
