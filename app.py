@@ -19,120 +19,143 @@ st.set_page_config(page_title="Prediksi Harga Rumah", page_icon="🏠", layout="
 if 'history' not in st.session_state:
     st.session_state.history = []
 
-# ======= Gray Transparent Style with White Form Labels =======
+# ======= Dark Theme with Black Text for Headings =======
 st.markdown("""
 <style>
 :root {
-    /* Color Palette */
-    --primary: rgba(75, 85, 99, 0.85);
-    --secondary: rgba(55, 65, 81, 0.9);
-    --text: #f1f5f9;
-    --text-secondary: #e2e8f0;
+    /* Color Palette - Dark Theme */
+    --primary-dark: #1a1a2e;
+    --secondary-dark: #16213e;
+    --card-dark: #0f3460;
+    --text-primary: #e6e6e6;
+    --text-secondary: #b8b8b8;
     --accent: #3b82f6;
     --accent-light: #60a5fa;
-    --card: rgba(55, 65, 81, 0.9);
-    --border: rgba(100, 116, 139, 0.3);
+    --border-dark: rgba(255, 255, 255, 0.1);
     --success: #10b981;
     --warning: #f59e0b;
     --error: #ef4444;
 }
 
+/* Main App Background */
 .stApp {
-    background: linear-gradient(rgba(100, 100, 100, 0.7), 
-                rgba(100, 100, 100, 0.7)),        
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    color: var(--text);
-    min-height: 100vh;
+    background-color: var(--primary-dark) !important;
+    color: var(--text-primary) !important;
 }
 
-/* Form Labels - White Text */
+/* Headings and Titles - Black */
+h1, h2, h3, h4, h5, h6,
+.stTitle h1, 
+.stTitle h2, 
+.stTitle h3, 
+.stTitle h4, 
+.stTitle h5, 
+.stTitle h6,
+.stMarkdown p, 
+.stMarkdown li, 
+.stMarkdown ol, 
+.stMarkdown ul,
+.stExpanderHeader p,
+div[data-testid="stForm"] h3,
+.stSubheader h3,
+.stAlert p,
+.result-box h2, 
+.result-box p {
+    color: black !important;
+}
+
+/* Form Elements */
 div[data-testid="stForm"] label {
-    color: white !important;
+    color: var(--text-primary) !important;
     font-weight: 500 !important;
 }
 
-/* Form Inputs */
 .stTextInput input, 
 .stNumberInput input, 
 .stSelectbox select {
-    color: white !important;
-    background-color: var(--secondary) !important;
-    border: 1px solid var(--border) !important;
+    color: var(--text-primary) !important;
+    background-color: var(--secondary-dark) !important;
+    border: 1px solid var(--border-dark) !important;
     border-radius: 8px !important;
     padding: 8px 12px !important;
 }
 
 /* Main Container */
 .main .block-container {
-    background-color: var(--primary) !important;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background-color: var(--card-dark) !important;
     border-radius: 12px;
     padding: 2rem;
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-    border: 1px solid var(--border);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border-dark);
 }
 
-/* White Property Link Button */
+/* Buttons and Links */
 .property-link-btn {
+    background-color: var(--accent) !important;
+    color: white !important;
+    border: 2px solid var(--accent-light) !important;
     display: inline-block;
-    background-color: white !important;
-    color: #2563eb !important;
     padding: 0.5rem 1.25rem;
     border-radius: 8px;
     text-decoration: none !important;
     font-weight: 600;
     margin-top: 0.75rem;
     transition: all 0.3s ease;
-    border: 2px solid #2563eb !important;
     cursor: pointer;
     text-align: center;
     box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
 }
 
 .property-link-btn:hover {
-    background-color: #f8fafc !important;
-    color: #1d4ed8 !important;
-    border-color: #1d4ed8 !important;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(29, 78, 216, 0.2);
+    background-color: var(--accent-light) !important;
+    color: white !important;
 }
 
 /* Result Box */
 .result-box {
     padding: 30px;
-    background: linear-gradient(135deg, var(--card), var(--secondary));
+    background: linear-gradient(135deg, var(--card-dark), var(--secondary-dark)) !important;
     border-radius: 12px;
     text-align: center;
-    border: 1px solid var(--accent-light);
+    border: 1px solid var(--accent);
     margin: 25px 0;
-    color: white !important;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 
-/* Footer */
-.footer {
-    text-align: center !important;
-    color: var(--text-secondary) !important;
-    padding: 1rem;
-    margin-top: 2rem;
-    font-size: 0.9em;
+/* History Section */
+.history-item {
+    background-color: var(--secondary-dark) !important;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border-left: 4px solid var(--accent);
+    color: black !important;
+}
+.history-item:hover {
+    background-color: rgba(55, 65, 81, 0.9);
+}
+.history-timestamp {
+    font-size: 0.85em;
+    color: #555 !important;
+    margin-bottom: 5px;
+}
+.history-price {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #0066cc !important;
 }
 
-/* Animation Banner */
+/* Banner */
 .animated-banner {
     width: 100%;
     overflow: hidden;
-    background-color: rgba(255, 255, 255, 0.9);  /* Latar belakang putih */
+    background-color: rgba(255, 255, 255, 0.95) !important;
     padding: 10px 0;
     border-radius: 10px;
     margin-bottom: 20px;
-    border: 1px solid #ddd;  /* Tambahkan border */
+    border: 1px solid #ddd;
 }
 .animated-text {
     display: inline-block;
@@ -140,7 +163,7 @@ div[data-testid="stForm"] label {
     animation: slideText 12s linear infinite;
     font-weight: bold;
     font-size: 18px;
-    color: black !important;  /* Ubah warna teks menjadi hitam */
+    color: black !important;
     padding-left: 100%;
 }
 @keyframes slideText {
@@ -148,29 +171,18 @@ div[data-testid="stForm"] label {
     100% { transform: translateX(-100%); }
 }
 
-/* History Section */
-.history-item {
-    background-color: rgba(55, 65, 81, 0.7);
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    border-left: 4px solid var(--accent);
+/* Footer */
+.footer {
+    text-align: center !important;
+    color: #555 !important;
+    padding: 1rem;
+    margin-top: 2rem;
+    font-size: 0.9em;
 }
-.history-item:hover {
-    background-color: rgba(55, 65, 81, 0.9);
-}
-.history-timestamp {
-    font-size: 0.85em;
-    color: var(--text-secondary);
-    margin-bottom: 5px;
-}
-.history-price {
-    font-weight: bold;
-    font-size: 1.1em;
-    color: var(--accent-light);
-}
-.history-detail-btn {
-    margin-top: 8px !important;
+
+/* Dataframe */
+.stDataFrame {
+    color: black !important;
 }
 </style>
 
