@@ -326,18 +326,7 @@ if submit:
 with st.expander("📜 History Prediksi", expanded=False):
     if not st.session_state.history:
         st.info("Belum ada riwayat prediksi.")
-    else:
-        for idx, item in enumerate(st.session_state.history[::-1]):  # Show newest first
-            with st.container():
-                st.markdown(f"""
-                <div class="history-item">
-                    <div class="history-timestamp">⏱️ {item['timestamp']}</div>
-                    <div class="history-price">💰 Rp {item['harga_prediksi']:,.0f}</div>
-                </div>
-                """, unsafe_allow_html=True)
-                
-                if st.button("Lihat Detail", key=f"detail_{idx}", help="Klik untuk melihat detail input"):
-                    st.json(item['input_data'])
+         
 
 # Footer
 st.markdown("""
