@@ -23,91 +23,125 @@ if 'history' not in st.session_state:
 st.markdown("""
 <style>
 :root {
-    /* Color Palette - Updated for better dark theme */
-    --primary-dark: #1a1a2e;
-    --secondary-dark: #16213e;
-    --card-dark: #0f3460;
-    --text-primary: #e6e6e6;
-    --text-secondary: #b8b8b8;
+    /* Color Palette */
+    --primary: rgba(75, 85, 99, 0.85);
+    --secondary: rgba(55, 65, 81, 0.9);
+    --text: #f1f5f9;
+    --text-secondary: #e2e8f0;
     --accent: #3b82f6;
     --accent-light: #60a5fa;
-    --border-dark: rgba(255, 255, 255, 0.1);
+    --card: rgba(55, 65, 81, 0.9);
+    --border: rgba(100, 116, 139, 0.3);
     --success: #10b981;
     --warning: #f59e0b;
     --error: #ef4444;
 }
 
-/* Main App Background - Solid Dark */
 .stApp {
-    background-color: var(--primary-dark) !important;
-    color: var(--text-primary) !important;
+    background: linear-gradient(rgba(100, 100, 100, 0.7), 
+                rgba(100, 100, 100, 0.7)),        
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: var(--text);
+    min-height: 100vh;
 }
 
-/* Form Labels - Consistent Text Color */
+/* Form Labels - White Text */
 div[data-testid="stForm"] label {
-    color: var(--text-primary) !important;
+    color: white !important;
     font-weight: 500 !important;
 }
 
-/* Form Inputs - Dark Theme */
+/* Form Inputs */
 .stTextInput input, 
 .stNumberInput input, 
 .stSelectbox select {
-    color: var(--text-primary) !important;
-    background-color: var(--secondary-dark) !important;
-    border: 1px solid var(--border-dark) !important;
+    color: white !important;
+    background-color: var(--secondary) !important;
+    border: 1px solid var(--border) !important;
     border-radius: 8px !important;
     padding: 8px 12px !important;
 }
 
-/* Main Container - Less Transparent */
+/* Main Container */
 .main .block-container {
-    background-color: var(--card-dark) !important;
+    background-color: var(--primary) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 12px;
     padding: 2rem;
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-    border: 1px solid var(--border-dark);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border);
 }
 
-/* Property Link Button - Adjusted for Dark Theme */
+/* White Property Link Button */
 .property-link-btn {
-    background-color: var(--accent) !important;
-    color: white !important;
-    border: 2px solid var(--accent-light) !important;
+    display: inline-block;
+    background-color: white !important;
+    color: #2563eb !important;
+    padding: 0.5rem 1.25rem;
+    border-radius: 8px;
+    text-decoration: none !important;
+    font-weight: 600;
+    margin-top: 0.75rem;
+    transition: all 0.3s ease;
+    border: 2px solid #2563eb !important;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
 }
 
 .property-link-btn:hover {
-    background-color: var(--accent-light) !important;
-    color: white !important;
+    background-color: #f8fafc !important;
+    color: #1d4ed8 !important;
+    border-color: #1d4ed8 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(29, 78, 216, 0.2);
 }
 
-/* Result Box - Dark Theme */
+/* Result Box */
 .result-box {
-    background: linear-gradient(135deg, var(--card-dark), var(--secondary-dark)) !important;
-    border: 1px solid var(--accent) !important;
-    color: var(--text-primary) !important;
+    padding: 30px;
+    background: linear-gradient(135deg, var(--card), var(--secondary));
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid var(--accent-light);
+    margin: 25px 0;
+    color: white !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 
-/* History Section - Dark Theme */
-.history-item {
-    background-color: var(--secondary-dark) !important;
-    border-left: 4px solid var(--accent) !important;
+/* Footer */
+.footer {
+    text-align: center !important;
+    color: var(--text-secondary) !important;
+    padding: 1rem;
+    margin-top: 2rem;
+    font-size: 0.9em;
 }
 
-/* Banner - Adjusted for Dark Theme */
+/* Animation Banner */
 .animated-banner {
-    background-color: rgba(30, 30, 30, 0.9) !important;
-    border: 1px solid var(--border-dark) !important;
+    width: 100%;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.9);  /* Latar belakang putih */
+    padding: 10px 0;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;  /* Tambahkan border */
 }
 .animated-text {
-    color: var(--text-primary) !important;
-}
-
-/* Footer - Dark Theme */
-.footer {
-    color: var(--text-secondary) !important;
+    display: inline-block;
+    white-space: nowrap;
+    animation: slideText 12s linear infinite;
+    font-weight: bold;
+    font-size: 18px;
+    color: black !important;  /* Ubah warna teks menjadi hitam */
+    padding-left: 100%;
 }
 @keyframes slideText {
     0% { transform: translateX(0); }
