@@ -19,7 +19,7 @@ st.set_page_config(page_title="Prediksi Harga Rumah", page_icon="🏠", layout="
 if 'history' not in st.session_state:
     st.session_state.history = []
 
-# ======= Dark Theme with Black Text for Headings =======
+# ======= Dark Theme with White Text =======
 st.markdown("""
 <style>
 :root {
@@ -27,8 +27,8 @@ st.markdown("""
     --primary-dark: #1a1a2e;
     --secondary-dark: #16213e;
     --card-dark: #0f3460;
-    --text-primary: #e6e6e6;
-    --text-secondary: #b8b8b8;
+    --text-primary: #ffffff;  /* White text */
+    --text-secondary: #e0e0e0;
     --accent: #3b82f6;
     --accent-light: #60a5fa;
     --border-dark: rgba(255, 255, 255, 0.1);
@@ -43,7 +43,7 @@ st.markdown("""
     color: var(--text-primary) !important;
 }
 
-/* Headings and Titles - Black */
+/* All Text Elements - White */
 h1, h2, h3, h4, h5, h6,
 .stTitle h1, 
 .stTitle h2, 
@@ -60,8 +60,11 @@ div[data-testid="stForm"] h3,
 .stSubheader h3,
 .stAlert p,
 .result-box h2, 
-.result-box p {
-    color: black !important;
+.result-box p,
+.stDataFrame,
+.stDataFrame th,
+.stDataFrame td {
+    color: var(--text-primary) !important;
 }
 
 /* Form Elements */
@@ -92,6 +95,12 @@ div[data-testid="stForm"] label {
 }
 
 /* Buttons and Links */
+.stButton button {
+    background-color: var(--accent) !important;
+    color: white !important;
+    border: none !important;
+}
+
 .property-link-btn {
     background-color: var(--accent) !important;
     color: white !important;
@@ -131,31 +140,30 @@ div[data-testid="stForm"] label {
     border-radius: 8px;
     margin-bottom: 10px;
     border-left: 4px solid var(--accent);
-    color: black !important;
 }
 .history-item:hover {
     background-color: rgba(55, 65, 81, 0.9);
 }
 .history-timestamp {
     font-size: 0.85em;
-    color: #555 !important;
+    color: var(--text-secondary) !important;
     margin-bottom: 5px;
 }
 .history-price {
     font-weight: bold;
     font-size: 1.1em;
-    color: #0066cc !important;
+    color: var(--accent-light) !important;
 }
 
 /* Banner */
 .animated-banner {
     width: 100%;
     overflow: hidden;
-    background-color: rgba(255, 255, 255, 0.95) !important;
+    background-color: rgba(30, 30, 30, 0.9) !important;
     padding: 10px 0;
     border-radius: 10px;
     margin-bottom: 20px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-dark);
 }
 .animated-text {
     display: inline-block;
@@ -163,7 +171,7 @@ div[data-testid="stForm"] label {
     animation: slideText 12s linear infinite;
     font-weight: bold;
     font-size: 18px;
-    color: black !important;
+    color: var(--text-primary) !important;
     padding-left: 100%;
 }
 @keyframes slideText {
@@ -174,15 +182,16 @@ div[data-testid="stForm"] label {
 /* Footer */
 .footer {
     text-align: center !important;
-    color: #555 !important;
+    color: var(--text-secondary) !important;
     padding: 1rem;
     margin-top: 2rem;
     font-size: 0.9em;
 }
 
-/* Dataframe */
-.stDataFrame {
-    color: black !important;
+/* Alert Boxes */
+.stAlert {
+    background-color: rgba(15, 52, 96, 0.8) !important;
+    border-left: 4px solid var(--accent) !important;
 }
 </style>
 
