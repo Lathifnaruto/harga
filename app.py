@@ -62,7 +62,7 @@ h1, h2, h3, h4, h5, h6,
 /* Mengubah warna teks pada form */
 div[data-testid="stForm"] label,
 div[data-testid="stForm"] h3 {
-    color: black !important;
+    color: white !important;
 }
 
 /* Mengubah warna teks pada expander */
@@ -76,7 +76,7 @@ div[data-testid="stForm"] h3 {
 }
 /* Mengubah warna teks pada tombol submit menjadi putih */
 div[data-testid="stForm"] button[kind="secondary"] span {
-    color: black !important;
+    color: #000000 !important;
 }
 
 /* Mengubah warna ikon 🔍 menjadi putih */
