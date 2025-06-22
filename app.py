@@ -89,7 +89,7 @@ div[data-testid="stForm"] h3 {
 /* Buttons and Links */
 .stButton button {
     background-color: var(--accent) !important;
-    color: white !important;
+    color: black !important;
     border: none !important;
 }
 
