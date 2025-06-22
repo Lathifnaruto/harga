@@ -76,7 +76,7 @@ div[data-testid="stForm"] h3 {
 }
 /* Mengubah warna teks pada tombol submit menjadi putih */
 div[data-testid="stForm"] button[kind="secondary"] span {
-    color: white !important;
+    color: black !important;
 }
 
 /* Mengubah warna ikon 🔍 menjadi putih */
