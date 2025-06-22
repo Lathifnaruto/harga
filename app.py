@@ -49,7 +49,7 @@ h1, h2, h3, h4, h5, h6,
 .stMarkdown li,
 .stMarkdown ul,
 .stMarkdown ol {
-    color: black !important;
+    color: white !important;
 }
 
 /* Mengubah warna teks pada header dan subheader */
