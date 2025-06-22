@@ -72,7 +72,7 @@ div[data-testid="stForm"] h3 {
 
 /* Mengubah warna teks pada alert boxes */
 .stAlert p {
-    color: white !important;
+    color: black !important;
 }
 
 /* Main Container */
