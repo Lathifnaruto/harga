@@ -62,7 +62,7 @@ h1, h2, h3, h4, h5, h6,
 /* Mengubah warna teks pada form */
 div[data-testid="stForm"] label,
 div[data-testid="stForm"] h3 {
-    color: white !important;
+    color: black !important;
 }
 
 /* Mengubah warna teks pada expander */
