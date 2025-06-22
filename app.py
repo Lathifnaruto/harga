@@ -81,7 +81,7 @@ div[data-testid="stForm"] button[kind="secondary"] span {
 
 /* Mengubah warna ikon 🔍 menjadi putih */
 div[data-testid="stForm"] button[kind="secondary"]::before {
-    color: white !important;
+    color: black !important;
 }
 
 /* Opsional: mengubah warna saat hover */
