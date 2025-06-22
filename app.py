@@ -117,6 +117,12 @@ with st.form("input_form"):
     
     submitted = st.form_submit_button("🚀 Prediksi Harga")
 
+import streamlit as st
+import pandas as pd
+import joblib
+from datetime import datetime
+import numpy as np
+
 # Prediksi
 if submitted:
     if land_size == 0 or building_size == 0:
@@ -141,11 +147,54 @@ if submitted:
             harga_prediksi = model.predict(data_input)[0]
             harga_rupiah = f"Rp {harga_prediksi:,.0f}".replace(",", ".")
             
+            # =============================================
+            # NEW: BREAKDOWN ALASAN PREDIKSI
+            # =============================================
+            
+            # 1. Dapatkan feature importance
+            feature_importance = model.feature_importances_
+            sorted_idx = np.argsort(feature_importance)[::-1]
+            top_features = features[sorted_idx][:3]  # Ambil 3 fitur terpenting
+            
+            # 2. Hitung kontribusi masing-masing fitur
+            contributions = {}
+            mean_values = model_data['mean_values']  # Asumsi sudah disimpan saat training
+            
+            for feat in top_features:
+                # Hitung seberapa jauh nilai input dari rata-rata
+                input_val = input_dict.get(feat, 0)
+                mean_val = mean_values.get(feat, 0)
+                diff = input_val - mean_val
+                
+                # Simpan kontribusi (positif/negatif)
+                contributions[feat] = {
+                    'value': input_val,
+                    'diff': diff,
+                    'impact': 'meningkatkan' if diff > 0 else 'menurunkan'
+                }
+            
+            # 3. Generate explanation text
+            explanations = []
+            for feat in top_features:
+                feat_name = {
+                    'land_size_m2': 'Luas Tanah',
+                    'building_size_m2': 'Luas Bangunan',
+                    'bedrooms': 'Jumlah Kamar Tidur',
+                    'building_age': 'Usia Bangunan',
+                    'furnishing': 'Kelengkapan Furnitur'
+                }.get(feat, feat)
+                
+                explanations.append(
+                    f"• **{feat_name}**: {contributions[feat]['value']} "
+                    f"({contributions[feat]['impact']} harga sebesar ~{abs(contributions[feat]['diff']*100:.1f}%)"
+                )
+            
             # Simpan ke history
             pred_data = {
                 'timestamp': datetime.now().strftime("%d/%m/%Y %H:%M"),
                 'harga_prediksi': harga_prediksi,
-                'input_data': input_dict
+                'input_data': input_dict,
+                'explanation': explanations  # NEW: Simpan penjelasan
             }
             st.session_state.history.append(pred_data)
         
@@ -157,29 +206,25 @@ if submitted:
             <p>Berdasarkan karakteristik properti yang dimasukkan</p>
         </div>
         """, unsafe_allow_html=True)
+        
+        # =============================================
+        # NEW: TAMPILKAN BREAKDOWN
+        # =============================================
+        st.subheader("🔍 Faktor Penentu Harga")
+        
+        with st.expander("Lihat Detail Analisis"):
+            st.markdown("""
+            **3 Faktor Terbesar yang Mempengaruhi Harga:**
+            """)
+            
+            for exp in explanations:
+                st.markdown(exp)
+            
+            st.markdown("""
+            ---
+            **Keterangan:**
+            - Persentase menunjukkan seberapa besar penyimpangan dari nilai rata-rata properti
+            - Faktor lain seperti lokasi tidak ditampilkan karena tidak dimasukkan dalam input
+            """)
 
-# History prediksi
-st.subheader("📜 Riwayat Prediksi")
-if not st.session_state.history:
-    st.info("Belum ada riwayat prediksi.")
-else:
-    for item in reversed(st.session_state.history):
-        with st.container():
-            st.markdown(f"""
-            <div class="history-item">
-                <p><strong>⏱ {item['timestamp']}</strong></p>
-                <h4>💰 Rp {item['harga_prediksi']:,.0f}</h4>
-            </div>
-            """, unsafe_allow_html=True)
-
-# Informasi model
-st.subheader("ℹ Tentang Model")
-st.markdown("""
-- Model menggunakan algoritma Random Forest Regressor
-- Dilatih dengan data properti dari berbagai lokasi
-- Akurasi model: **85-90%** tergantung karakteristik properti
-""")
-
-# Footer
-st.markdown("---")
-st.caption("© 2023 Aplikasi Prediksi Harga Rumah | Dibuat dengan Streamlit")
+# ... [Rest of the code remains the same] ...
