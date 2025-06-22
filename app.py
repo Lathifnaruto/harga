@@ -74,6 +74,20 @@ div[data-testid="stForm"] h3 {
 .stAlert p {
     color: white !important;
 }
+/* Mengubah warna teks pada tombol submit menjadi putih */
+div[data-testid="stForm"] button[kind="secondary"] span {
+    color: white !important;
+}
+
+/* Mengubah warna ikon 🔍 menjadi putih */
+div[data-testid="stForm"] button[kind="secondary"]::before {
+    color: white !important;
+}
+
+/* Opsional: mengubah warna saat hover */
+div[data-testid="stForm"] button[kind="secondary"]:hover span {
+    color: white !important;
+}
 
 /* Main Container */
 .main .block-container {
