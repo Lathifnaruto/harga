@@ -45,42 +45,34 @@ st.markdown("""
 
 /* All Text Elements - White */
 h1, h2, h3, h4, h5, h6,
+.stMarkdown p,
+.stMarkdown li,
+.stMarkdown ul,
+.stMarkdown ol {
+    color: white !important;
+}
+
+/* Mengubah warna teks pada header dan subheader */
 .stTitle h1, 
 .stTitle h2, 
-.stTitle h3, 
-.stTitle h4, 
-.stTitle h5, 
-.stTitle h6,
-.stMarkdown p, 
-.stMarkdown li, 
-.stMarkdown ol, 
-.stMarkdown ul,
-.stExpanderHeader p,
-div[data-testid="stForm"] h3,
-.stSubheader h3,
-.stAlert p,
-.result-box h2, 
-.result-box p,
-.stDataFrame,
-.stDataFrame th,
-.stDataFrame td {
-    color: var(--text-primary) !important;
+.stTitle h3 {
+    color: white !important;
 }
 
-/* Form Elements */
-div[data-testid="stForm"] label {
-    color: var(--text-primary) !important;
-    font-weight: 500 !important;
+/* Mengubah warna teks pada form */
+div[data-testid="stForm"] label,
+div[data-testid="stForm"] h3 {
+    color: white !important;
 }
 
-.stTextInput input, 
-.stNumberInput input, 
-.stSelectbox select {
-    color: var(--text-primary) !important;
-    background-color: var(--secondary-dark) !important;
-    border: 1px solid var(--border-dark) !important;
-    border-radius: 8px !important;
-    padding: 8px 12px !important;
+/* Mengubah warna teks pada expander */
+.stExpanderHeader p {
+    color: white !important;
+}
+
+/* Mengubah warna teks pada alert boxes */
+.stAlert p {
+    color: white !important;
 }
 
 /* Main Container */
